@@ -61,8 +61,7 @@ machine learning models.
 Please create new functions to implement your own feature engineering. The function should output training and testing dataset.
 '''
 def feature_engineering_example():
-    training = np.empty(shape=(0, 10))
-    testing = np.empty(shape=(0, 10))
+    
     # deal with each dataset file
     for i in range(19):
         df = pd.read_csv('dataset/dataset_' + str(i + 1) + '.txt', sep=',', header=None)
@@ -72,6 +71,8 @@ def feature_engineering_example():
             b, a = signal.butter(4, 0.04, 'low', analog=False)
             for j in range(24):
                 activity_data[:, j] = signal.lfilter(b, a, activity_data[:, j])
+training = np.empty(shape=(0, 10))
+testing = np.empty(shape=(0, 10))
             
             datat_len = len(activity_data)
             training_len = math.floor(datat_len * 0.8)
@@ -179,11 +180,11 @@ def model_training_and_evaluation_example():
     print('Accuracy: ', accuracy_score(y_test, y_pred))
     print(confusion_matrix(y_test, y_pred))
 
-# print("# Tuning hyper-parameters for %s" % score)
-# print()
-# clf = GridSearchCV(SVC(), tuned_parameters, cv=10,
-#                    scoring=score)
-# clf.fit(x_train, y_train)
+print("# Tuning hyper-parameters for %s" % score)
+print()
+clf = GridSearchCV(SVC(), tuned_parameters, cv=10,
+                   scoring=score)
+clf.fit(x_train, y_train)
 
 if __name__ == '__main__':
     
